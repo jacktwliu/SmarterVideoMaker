@@ -1,0 +1,98 @@
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Smarter 智慧化影音創作系統</title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+        <style>
+            tr:nth-of-type(even) { 
+                background-color: white;
+            } 
+            tr:nth-of-type(odd) {
+                background-color: rgb(218, 255, 162);
+            }
+        </style>
+    </head>
+    <body>
+        <!-- 上方為nav導覽列 &nbsp為空格 -->
+        <nav id ="smarternav" class="navbar navbar-light navbar-expend-md">
+            <a id="smarternavtitle" href="/index/">&nbsp Smarter 智慧化<br />&nbsp 影音創作</a>
+            <a href="/news/" id="nav_news">最新消息</a>
+            <a href="/messageboard/" id="nav_messageboard">留言板</a>
+            <a href="/sendfeedback/" id="nav_sendfeedback">問題反映</a>
+
+            {% if request.user.is_authenticated %}
+            <p>
+                <a href="/accounts/userinfo/" id="nav_login_logout">{{request.user}}</a> <a href="/accounts/logout/" id="nav_login_logout">登出</a>
+            </p>
+        {% else %}
+            <a href="/accounts/login/" id="nav_login_logout">註冊或登入</a>
+        {% endif %}
+        </nav>
+        <br>
+        <center><h1>留言板</h1></center>
+        <br>
+        {% if request.user.is_authenticated %}
+        <center><input type="button" style="background-color:rgb(102, 255, 0); border:3px rgb(0, 197, 3) solid; font-weight:bold;" onclick="window.location='/messageboardpost/'" value="&nbsp&nbsp&nbsp&nbsp我要留言&nbsp&nbsp&nbsp&nbsp"/></center>
+        {% else %}
+            <center><p id="login_message">請先<a href="/accounts/login/" id="login_message">登入或註冊</a>帳號，方可使用留言功能！</p></center>
+        {% endif %}
+        <br>
+        <br>
+        <form action="." method="POST" name="messageboardform">
+            <center>
+            <table border="1" width="80%">
+                {% csrf_token %}
+                {% for Messageboard in msboard %}
+                <tr>
+                    <td>
+                    <b>留言者:{{ Messageboard.msboardname }} &nbsp&nbsp&nbsp&nbsp&nbsp時間:{{ Messageboard.datetime}}&nbsp&nbsp&nbsp&nbsp&nbsp
+                        {% if request.user.is_authenticated %}
+                            
+                            {% if Messageboard.msboardname == user.get_username %}
+                                <a href="edit/{{Messageboard.id}}/load">編輯</a>&nbsp&nbsp
+                                <a href="delete/{{Messageboard.id}}">收回</a>
+                            {% endif %}
+
+                        {% else %}
+                        <a> </a>
+                        {% endif %}
+                    </b>
+                    
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <br>
+                        &nbsp&nbsp&nbsp{{ Messageboard.msboardcontent}}
+                        <br><br>
+                    </td>
+                </tr>
+                {% empty %}
+                    <a style="font-weight: bold;color:green;font-size:25px;">想成為第一位留言者嗎？快來留言交流吧~</a>
+                {% endfor %}
+            
+              <!--
+              <tr>
+                  <th>留言者:</th>
+                  <th>留言內容:</th>
+                  <th>留言日期:</th>
+                  <th></th>
+              </tr>
+              {% for Messageboard in msboard %}
+               <tr>
+                   <td>{{ Messageboard.msboardname }} </td>
+                   <td>{{ Messageboard.msboardcontent}}</td>
+                   <td>{{ Messageboard.datetime}}</td>
+                   <td></td>
+                </tr>
+                {% endfor %}-->
+            </table></center>
+        </form>
+        
+    </body>
+</html>

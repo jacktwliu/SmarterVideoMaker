@@ -1,0 +1,66 @@
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Smarter 智慧化影音創作系統</title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+        <script>
+           
+        </script>
+    </head>
+    <body>
+        <!-- 上方為nav導覽列 &nbsp為空格 -->
+        <nav id ="smarternav" class="navbar navbar-light navbar-expend-md">
+            <a id="smarternavtitle" href="/index/">&nbsp Smarter 智慧化<br />&nbsp 影音創作</a>
+            <a href="/news/" id="nav_news">最新消息</a>
+            <a href="/messageboard/" id="nav_messageboard">留言板</a>
+            <a href="/sendfeedback/" id="nav_sendfeedback">問題反映</a>
+
+            {% if request.user.is_authenticated %}
+            <p>
+                <a href="/accounts/userinfo/" id="nav_login_logout">{{request.user}}</a> <a href="/accounts/logout/" id="nav_login_logout">登出</a>
+            </p>
+        {% else %}
+            <a href="/accounts/login/" id="nav_login_logout">註冊或登入</a>
+        {% endif %}
+        </nav>
+        <br>
+        <div id="recordingareadiv"></div>
+
+        
+
+        <!-- 透過 <video> 代入影像 -->
+        <!-- <div class="row mb-5 justify-content-center align-items-center">
+            <div class="col-md-6 text-center">
+                <div class="video-container d-flex align-items-center justify-content-center">
+                    <div class="is-recording"></div>
+                    <video id="inputVideo" alt="在這裡錄影" muted>Video stream not available.</video>
+                </div>
+            </div>
+  
+            <div class="col-md-6 text-center">
+                <div class="video-container d-flex align-items-center justify-content-center">
+                    <video id="outputVideo" alt="錄好的畫面將會出現在這" muted>Video stream not available.</video>
+                </div>
+            </div>
+        </div> -->
+        <!-- 操作按鍵 -->
+        <!-- <div class="row mb-4 justify-content-center align-items-center">
+            <div class="col-4 d-flex justify-content-center align-items-center">
+                <button id="startBtn" class="btn btn-sm btn-outline-primary">開始錄影</button>
+                <button id="stopBtn" class="btn btn-sm btn-outline-danger" style="display:none">結束錄影</button>
+                <button id="resetBtn" class="btn btn-sm btn-outline-info" style="display:none">點我以重新錄影</button>
+            </div>
+        </div> -->
+        <!-- 顯示錯誤訊息 -->
+        <!-- <div class="row">
+            <div class="col-12">
+                <div role="alert" id="errorMsg"></div>
+            </div>
+        </div> -->
+    </body>
+</html>

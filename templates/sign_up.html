@@ -1,0 +1,66 @@
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>註冊帳號</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+<body>
+    <nav id="smarternav" class="navbar navbar-light navbar-expend-md" style="background-color:black">
+        <a style="color:white;text-decoration:none;font-weight: bold" href="/index/">&nbsp Smarter 智慧化<br />&nbsp 影音創作</a>
+    </nav>
+    <br>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div id="signupdiv">
+            <p style="text-align:center;color:#2d3032;font-weight:500;font-size:1cm">
+                使用者註冊帳號
+            </p>
+            {{ form }}
+    
+            <br />
+            <center><input class="btn btn-success" type="submit" value="送出並註冊" /></center>
+        </div>
+    </form>
+
+    <!--
+    <form action="" method="post">{% csrf_token %}
+        <div id="signupdiv">
+            <p style="text-align:center;color:#2d3032;font-weight:500;font-size:1cm">
+                使用者註冊帳號
+            </p>
+            {{ form.as_p }}
+            <center><input type="submit" style="font-weight:bold; border:1.5px black solid; background-color:rgb(220, 220, 220);" value="送出並註冊"></center>
+        </div>
+    </form>-->
+
+    <!--
+    <form action="." method="POST" name="signupform">
+        {% csrf_token %}
+        <div id="signupdiv">
+            <p style="text-align:center;color:#2d3032;font-weight:500;font-size:1cm">
+                註冊帳號
+            </p>
+            <p class="sep" id="signup_p_text">
+                <label class="small" for="userid"> 請輸入帳號(E-mail):&nbsp</label>
+                <input type="email" id="userid" name="userid" required />
+            </p>
+            <p class="sep" id="signup_p_text">
+                <label class="small" for="password"> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp請輸入密碼:&nbsp</label>
+                <input type="password" id="password" name="password" required />
+            </p>
+            <p class="sep" id="signup_p_text">
+                <label class="small" for="username"> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp請輸入用戶名:&nbsp</label>
+                <input type="text" id="username" name="username" required />
+            </p>
+            <center>
+            <input type="submit" name="button" id="button" value="送出並註冊">&nbsp&nbsp
+            <input type="reset" name="button2" id="button2" value="重新填寫資料">&nbsp&nbsp
+            <input name="button_login" type="button" value="返回登入頁面" onclick="window.location='/accounts/login/'" /></center>
+        </div>
+    </form> -->
+</body>

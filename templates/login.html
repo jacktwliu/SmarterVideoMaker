@@ -1,0 +1,64 @@
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>登入</title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.js"></script>
+
+    </head>
+    <body>
+        <nav id ="smarternav" class="navbar navbar-light navbar-expend-md">
+            <a style="color:white;text-decoration:none;font-weight: bold" href="/index/">&nbsp Smarter 智慧化<br />&nbsp 影音創作</a>
+        </nav>
+        <br>
+    <div>
+    
+    <form action="." method="POST" id="loginform">
+        {% csrf_token %}
+        <div class="fields" id="logindiv">
+            <p style="text-align:center;color:#2d3032;font-weight:500;font-size:1cm">
+                登入
+            </p>
+            <!--<center><span style="color:red">{{message}}</span></center>-->
+            <p class="sep" id="login_p_text">
+               <label class="small" for="userid"> 帳號:&nbsp</label>
+               <input name="username" type="text" id="username" required />
+            </p>
+            <p class="sep" id="login_p_text">
+                <label class="small" for="password"> 密碼:&nbsp</label>
+                <input name="password" type="password" id="password" required />
+            </p>
+            <!--
+            <a href="#" rel="external nofollow" class="captcha">
+                <img src="{{ captcha.image_url }}" alt="點選切換" id="id_captcha" >
+                </a> <br>
+                <input type="text" name="captcha" placeholder="驗證碼"> <br>
+                <input value="{{ captcha.hashkey }}" name="hashkey" type="hidden" id="id_captcha_0">-->
+                
+            <div class="action" id="loginbutton">
+                <input type="submit" class="butDef" value="登入系統" />&nbsp&nbsp&nbsp
+                <input name="button_sign_up" type="button" value="註冊帳號" onclick="window.location='/accounts/sign_up/'" />&nbsp&nbsp&nbsp
+                <input type="hidden" name="next" value="{{ next }}" />
+            </div>
+            <!--<center><span style="color:red">{{ message }}</span></center>-->
+        </div>
+    </form>
+    </div>
+    <script>
+        <!-- 動態重新整理驗證碼js -->
+        $(document).ready(function(){
+            $('.captcha').click(function () {
+            $.getJSON("/refresh_captcha/",function (result) {
+                $('#id_captcha').attr('src',result['image_url']);
+                $('#id_captcha_0').val(result['hashkey'])
+            });
+            });
+        });
+    </script>
+<body>

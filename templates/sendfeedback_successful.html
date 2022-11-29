@@ -1,0 +1,37 @@
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Smarter 智慧化影音創作系統</title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+    </head>
+    <body>
+        <!-- 上方為nav導覽列 &nbsp為空格 -->
+        <nav id ="smarternav" class="navbar navbar-light navbar-expend-md">
+            <a id="smarternavtitle" href="/index/">&nbsp Smarter 智慧化<br />&nbsp 影音創作</a>
+            <a href="/news/" id="nav_news">最新消息</a>
+            <a href="/messageboard/" id="nav_messageboard">留言板</a>
+            <a href="/sendfeedback/" id="nav_sendfeedback">問題反映</a>
+
+            {% if request.user.is_authenticated %}
+            <p>
+                <a href="/accounts/userinfo/" id="nav_login_logout">{{request.user}}</a> <a href="/accounts/logout/" id="nav_login_logout">登出</a>
+            </p>
+        {% else %}
+            <a href="/accounts/login/" id="nav_login_logout">註冊或登入</a>
+        {% endif %}
+        </nav>
+        <br>
+        <br>
+        <br>
+            <p style="text-align:center;color:green;font-weight:500;font-size:1cm">
+                表單成功送出，我們已收到您的問題反映！將會迅速處理您的問題！謝謝！
+            </p>
+            <center><input name="button_index" type="button" value="返回首頁" onclick="window.location='/index/'" /></center>
+    </body>
+</html>
